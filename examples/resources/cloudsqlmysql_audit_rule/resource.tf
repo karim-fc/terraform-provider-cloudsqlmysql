@@ -1,5 +1,5 @@
 resource "cloudsqlmysql_audit_rule" "default" {
-  username   = "*"
+  user       = "*"
   database   = "*"
   object     = "*"
   operation  = "*"

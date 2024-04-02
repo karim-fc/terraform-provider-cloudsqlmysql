@@ -14,7 +14,7 @@ description: |-
 
 ```terraform
 resource "cloudsqlmysql_audit_rule" "default" {
-  username   = "*"
+  user       = "*"
   database   = "*"
   object     = "*"
   operation  = "*"
@@ -31,7 +31,7 @@ resource "cloudsqlmysql_audit_rule" "default" {
 - `object` (String)
 - `operation` (String)
 - `ops_result` (String)
-- `username` (String)
+- `user` (String)
 
 ### Read-Only
 

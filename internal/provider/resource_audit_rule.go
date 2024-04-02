@@ -23,6 +23,15 @@ type auditRuleResource struct {
 	db *sql.DB
 }
 
+type auditRuleResourceModel struct {
+	Id        types.Int64  `tfsdk:"id"`
+	User      types.String `tfsdk:"user"`
+	Database  types.String `tfsdk:"database"`
+	Object    types.String `tfsdk:"object"`
+	Operation types.String `tfsdk:"operation"`
+	OpsResult types.String `tfsdk:"ops_result"`
+}
+
 func newAuditRuleResource() resource.Resource {
 	return &auditRuleResource{}
 }
@@ -37,7 +46,7 @@ func (r *auditRuleResource) Schema(_ context.Context, _ resource.SchemaRequest, 
 			"id": schema.Int64Attribute{
 				Computed: true,
 			},
-			"username": schema.StringAttribute{
+			"user": schema.StringAttribute{
 				Required: true,
 			},
 			"database": schema.StringAttribute{
@@ -69,7 +78,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	}
 
 	_, err := r.db.ExecContext(ctx, "CALL mysql.cloudsql_create_audit_rule(?,?,?,?,?,1, @outval,@outmsg);",
-		plan.Username.ValueString(),
+		plan.User.ValueString(),
 		plan.Database.ValueString(),
 		plan.Object.ValueString(),
 		plan.Operation.ValueString(),
@@ -113,7 +122,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	id := int64(-1)
 	for rows.Next() {
 		var row auditRuleRow
-		err = rows.Scan(&row.Id, &row.Username, &row.Dbname, &row.Object, &row.Operation, &row.OpResult)
+		err = rows.Scan(&row.Id, &row.User, &row.Dbname, &row.Object, &row.Operation, &row.OpResult)
 		if err != nil {
 			resp.Diagnostics.AddError(
 				"Unable to create the audit rule",
@@ -161,7 +170,7 @@ func (r *auditRuleResource) Read(ctx context.Context, req resource.ReadRequest, 
 
 	var row auditRuleRow
 
-	err := r.db.QueryRowContext(ctx, "CALL mysql.cloudsql_list_audit_rule(?,@outval,@outmsg);", id).Scan(&row.Id, &row.Username, &row.Dbname, &row.Object, &row.Operation, &row.OpResult)
+	err := r.db.QueryRowContext(ctx, "CALL mysql.cloudsql_list_audit_rule(?,@outval,@outmsg);", id).Scan(&row.Id, &row.User, &row.Dbname, &row.Object, &row.Operation, &row.OpResult)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to read audit rule",
@@ -180,7 +189,7 @@ func (r *auditRuleResource) Read(ctx context.Context, req resource.ReadRequest, 
 	}
 
 	state.Id = types.Int64Value(row.Id)
-	state.Username = types.StringValue(row.Username)
+	state.User = types.StringValue(row.User)
 	state.Database = types.StringValue(row.Dbname)
 	state.Object = types.StringValue(row.Object)
 	state.Operation = types.StringValue(row.Operation)
@@ -207,7 +216,7 @@ func (r *auditRuleResource) Update(ctx context.Context, req resource.UpdateReque
 
 	_, err := r.db.ExecContext(ctx, "CALL mysql.cloudsql_update_audit_rule(?,?,?,?,?,?,1, @outval,@outmsg);",
 		plan.Id.ValueInt64(),
-		plan.Username.ValueString(),
+		plan.User.ValueString(),
 		plan.Database.ValueString(),
 		plan.Object.ValueString(),
 		plan.Operation.ValueString(),
@@ -309,18 +318,9 @@ func (r *auditRuleResource) auditRuleStoredProcedureResponse(ctx context.Context
 	return nil
 }
 
-type auditRuleResourceModel struct {
-	Id        types.Int64  `tfsdk:"id"`
-	Username  types.String `tfsdk:"username"`
-	Database  types.String `tfsdk:"database"`
-	Object    types.String `tfsdk:"object"`
-	Operation types.String `tfsdk:"operation"`
-	OpsResult types.String `tfsdk:"ops_result"`
-}
-
 type auditRuleRow struct {
 	Id        int64
-	Username  string
+	User      string
 	Dbname    string
 	Object    string
 	Operation string
@@ -328,7 +328,7 @@ type auditRuleRow struct {
 }
 
 func (row *auditRuleRow) equalsModel(model *auditRuleResourceModel) bool {
-	if !strings.EqualFold(row.Username, model.Username.ValueString()) {
+	if !strings.EqualFold(row.User, model.User.ValueString()) {
 		return false
 	}
 	if !strings.EqualFold(row.Dbname, model.Database.ValueString()) {
