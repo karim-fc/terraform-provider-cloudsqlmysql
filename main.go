@@ -27,7 +27,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/devoteamgcloud/cloudsqlmysql",
+		Address: "registry.terraform.io/karim-fc/cloudsqlmysql",
 		Debug:   debug,
 	}
 
