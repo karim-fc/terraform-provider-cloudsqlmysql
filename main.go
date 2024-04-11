@@ -17,7 +17,7 @@ import (
 //go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate -provider-name cloudsqlmysql
 
 var (
-	version string = "0.0.1"
+	version string = "dev"
 )
 
 func main() {
