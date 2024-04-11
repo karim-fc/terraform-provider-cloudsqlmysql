@@ -144,7 +144,7 @@ func (r *roleResource) Configure(_ context.Context, req resource.ConfigureReques
 		return
 	}
 
-	db, err := config.connectToMySQLDb("") // Not connecting to a specific database
+	db, err := config.connectToMySQLNoDb() // Not connecting to a specific database
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to connect to the Cloud SQL MySQL instance",

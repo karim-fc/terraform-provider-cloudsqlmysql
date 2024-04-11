@@ -86,7 +86,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create the audit rule",
-			"An unexpected error occured while creating the audit rule: "+err.Error(),
+			"An unexpected error occurred while creating the audit rule: "+err.Error(),
 		)
 		return
 	}
@@ -95,7 +95,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create the audit rule",
-			"An unexpected error occured while creating the audit rule: "+err.Error(),
+			"An unexpected error occurred while creating the audit rule: "+err.Error(),
 		)
 		return
 	}
@@ -104,7 +104,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create the audit rule",
-			"An unexpected error occured while creating the audit rule: "+err.Error(),
+			"An unexpected error occurred while creating the audit rule: "+err.Error(),
 		)
 		return
 	}
@@ -114,7 +114,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create the audit rule",
-			"An unexpected error occured while creating the audit rule: "+err.Error(),
+			"An unexpected error occurred while creating the audit rule: "+err.Error(),
 		)
 		return
 	}
@@ -126,7 +126,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 		if err != nil {
 			resp.Diagnostics.AddError(
 				"Unable to create the audit rule",
-				"An unexpected error occured while creating the audit rule: "+err.Error(),
+				"An unexpected error occurred while creating the audit rule: "+err.Error(),
 			)
 			return
 		}
@@ -140,7 +140,7 @@ func (r *auditRuleResource) Create(ctx context.Context, req resource.CreateReque
 	if id == -1 {
 		resp.Diagnostics.AddError(
 			"Unable to create the audit rule",
-			"An unexpected error occured while creating the audit rule: the audit rule is not found after creation",
+			"An unexpected error occurred while creating the audit rule: the audit rule is not found after creation",
 		)
 		return
 	}
@@ -174,7 +174,7 @@ func (r *auditRuleResource) Read(ctx context.Context, req resource.ReadRequest, 
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to read audit rule",
-			fmt.Sprintf("An unexpected error occured while fetching the audit rule with id %d, error: %s", id, err.Error()),
+			fmt.Sprintf("An unexpected error occurred while fetching the audit rule with id %d, error: %s", id, err.Error()),
 		)
 		return
 	}
@@ -183,7 +183,7 @@ func (r *auditRuleResource) Read(ctx context.Context, req resource.ReadRequest, 
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to update the audit rule",
-			fmt.Sprintf("An unexpected error occured while fetching the audit rule with id %d, error: %s", id, err.Error()),
+			fmt.Sprintf("An unexpected error occurred while fetching the audit rule with id %d, error: %s", id, err.Error()),
 		)
 		return
 	}
@@ -224,7 +224,7 @@ func (r *auditRuleResource) Update(ctx context.Context, req resource.UpdateReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to update the audit rule",
-			"An unexpected error occured while updating the audit rule: "+err.Error(),
+			"An unexpected error occurred while updating the audit rule: "+err.Error(),
 		)
 		return
 	}
@@ -233,7 +233,7 @@ func (r *auditRuleResource) Update(ctx context.Context, req resource.UpdateReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to update the audit rule",
-			"An unexpected error occured while updating the audit rule: "+err.Error(),
+			"An unexpected error occurred while updating the audit rule: "+err.Error(),
 		)
 		return
 	}
@@ -263,7 +263,7 @@ func (r *auditRuleResource) Delete(ctx context.Context, req resource.DeleteReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to delete the audit rule",
-			fmt.Sprintf("An unexpected error occured while deleting the audit rule with id %d, error: %s", id, err.Error()),
+			fmt.Sprintf("An unexpected error occurred while deleting the audit rule with id %d, error: %s", id, err.Error()),
 		)
 		return
 	}
@@ -271,7 +271,7 @@ func (r *auditRuleResource) Delete(ctx context.Context, req resource.DeleteReque
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to delete the audit rule",
-			fmt.Sprintf("An unexpected error occured while deleting the audit rule with id %d, error: %s", id, err.Error()),
+			fmt.Sprintf("An unexpected error occurred while deleting the audit rule with id %d, error: %s", id, err.Error()),
 		)
 		return
 	}
@@ -291,7 +291,7 @@ func (r *auditRuleResource) Configure(ctx context.Context, req resource.Configur
 		return
 	}
 
-	db, err := config.connectToMySQLDb("") // Not connecting to a specific database
+	db, err := config.connectToMySQLNoDb() // Not connecting to a specific database
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to connect to the Cloud SQL MySQL instance",

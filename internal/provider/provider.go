@@ -194,7 +194,7 @@ func (p *CloudSqlMysqlProvider) Configure(ctx context.Context, req provider.Conf
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create Cloud SQL MySQL connection",
-			"An unexpected error occured when creating the Cloud SQL connection.\n\n"+
+			"An unexpected error occurred when creating the Cloud SQL connection.\n\n"+
 				"Error: "+err.Error(),
 		)
 	}

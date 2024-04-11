@@ -19,10 +19,15 @@ func newConfig(dsnTemplate string) *Config {
 	}
 }
 
-func (c *Config) connectToMySQLDb(dbName string) (*sql.DB, error) {
-	dsn := fmt.Sprintf(c.dsnTemplate, dbName)
+func (c *Config) connectToMySQLNoDb() (*sql.DB, error) {
+	dsn := fmt.Sprintf(c.dsnTemplate, "")
 	return c.connectToMySQL(dsn)
 }
+
+// func (c *Config) connectToMySQLDb(dbName string) (*sql.DB, error) {
+// 	dsn := fmt.Sprintf(c.dsnTemplate, dbName)
+// 	return c.connectToMySQL(dsn)
+// }
 
 func (c *Config) connectToMySQL(dsn string) (*sql.DB, error) {
 	c.dbRegistryMutex.Lock()
